@@ -41,3 +41,4 @@
 #
 #  >>> Escriba su codigo a partir de este punto <<<
 #
+cat data.csv | sed 's:/:-:g' | sed 's:;:,:g' > output.csv
