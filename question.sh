@@ -1,4 +1,4 @@
-#
+
 #  LAB: Transformación de archivos con `sed`
 #  ================================================
 #
@@ -40,5 +40,8 @@
 #  2014-09-01,A,3,100.4
 #
 #  >>> Escriba su codigo a partir de este punto <<<
-#
-cat data.csv | sed 's:/:-:g' | sed 's:;:,:g' > output.csv
+sed -E 's:(..)\/(..)\/(..):20\3-\2-\1:g'  | "$1" sed -E 's:(.)\/(.)\/(....):\3-\2-\1/:g'  | sed 's/-9/-09/g'  | sed 's/-1\//-01/g' \
+    | sed 's/;;/;\\N;/g' | sed 's/;N;/;\\N;/g' | sed 's/;\\n;/;\\N;/g' | sed 's/n/\\N/g' | sed 's/;$/;\\N/g' \
+    | sed 's/\([0-9]\),\([0-9]\)/\1.\2/' \
+    | sed 's/.*/\U&/' \
+    | sed 's/;/,/g' > "$2"
